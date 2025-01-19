@@ -1,0 +1,8 @@
+spring:
+  data:
+    mongodb:
+      uri: 'mongodb://localhost:27017/order-service'
+      database: order-service
+
+server:
+  port: 8080
