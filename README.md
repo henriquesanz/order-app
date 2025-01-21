@@ -13,6 +13,7 @@ This project is a Spring Boot application designed to manage and process orders 
 
 ## Improvement Proposals
 - It is recommended that interactions between system A and system B be carried out using a messaging mechanism such as Apache Kafka in order to avoid impacting the systems between outages.
+- TODO: Implement Unit Tests
 
 ---
 
@@ -95,4 +96,4 @@ Below is the UML class diagram that outlines the data structure for managing ord
 ---
 
 ## Info
-- This README file was created with the help of ChatGPT, the entire development of the project was created by José Henrique Paiva with the aim of carrying out a technical challenge.
+- This README file was created with the help of Copilot, the entire development of the project was created by José Henrique Paiva with the aim of carrying out a technical challenge.
