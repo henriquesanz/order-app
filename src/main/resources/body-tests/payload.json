@@ -1,0 +1,23 @@
+{
+  "orderId": "order123",
+  "customerInfo": {
+    "customerId": "45480001118",
+    "customerName": "Jose Henrique Paiva",
+    "customerContact": "11961260791"
+  },
+  "orderDate": "2025-01-19T15:30:00",
+  "products": [
+    {
+      "productId": "product001",
+      "name": "Wireless Mouse",
+      "price": 49.99,
+      "quantity": 2
+    },
+    {
+      "productId": "product002",
+      "name": "Mechanical Keyboard",
+      "price": 100,
+      "quantity": 1
+    }
+  ]
+}

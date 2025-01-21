@@ -44,6 +44,17 @@ Below is the UML class diagram that outlines the data structure for managing ord
 
 ---
 
+## Swagger Integration
+The application uses **Swagger** for API documentation. Once the application is running, you can access the Swagger UI at:
+
+```
+http://localhost:8080/swagger-ui.html
+```
+
+This will provide an interactive interface to view and test all available API endpoints.
+
+---
+
 ## Setup and Installation
 ### Prerequisites
 - Java 17 or higher.
@@ -81,10 +92,59 @@ Below is the UML class diagram that outlines the data structure for managing ord
 ## Endpoints
 ### Order Management Endpoints
 - `POST /orders`: Receives orders from External System A.
-- `GET /orders/{id}`: Retrieves details of a specific order.
-- `GET /orders/status`: Retrieves the status of all orders.
-- `POST /orders/send`: Sends processed orders to External System B.
+- `GET /orders/filterByDate`: Retrieves orders filter by date.
+- `GET /orders/filterByCustomerId`: Retrieves orders filter by CustomerId.
+- `GET /orders`: List all orders
 
+
+---
+
+## Evidence of Success
+To validate the successful execution of the application, use the sample payload located in the `resources/tests-payload` folder. The `payload.json` file contains a sample order that can be sent to the `/orders` endpoint.
+
+You can also check the **evidence image** of successful execution in the `images` folder. The file `openshift-order-app.png` contains a screenshot of the API response and system state after processing an order.
+
+![Openshift Order App](images/openshift-order-app.png)
+![Success Evidence](images/success-evidence.png)
+
+---
+
+## OpenShift Deployment
+To deploy the application on **Red Hat OpenShift Sandbox**, follow these steps:
+
+1. **Create an OpenShift account** (if you don't have one yet) and sign in to the OpenShift Sandbox:
+   - Visit [OpenShift Sandbox](https://console.redhat.com/openshift/sandbox) and create an account or log in (Free).
+
+2. **Create a new project**:
+   - Once logged in to OpenShift, create a new project by navigating to the OpenShift Console and clicking on "Create Project."
+
+3. **Deploy the application**:
+   - In the OpenShift Console, go to **Developer** view and click on **Import from Git**.
+   - In the Git repository URL field, enter the following repository URL:
+     ```
+     https://github.com/henriquesanz/order-app
+     ```
+   - Make sure to select **Dockerfile** as the build strategy, as the project contains a Dockerfile for the application.
+
+4. **Configure the MongoDB container**:
+   - In the same project, deploy the MongoDB container from Docker Hub by running the following command in the OpenShift terminal:
+     ```bash
+     oc new-app mongo --name=mongodb
+     ```
+   - Alternatively, you can use the **OpenShift Catalog** to select the MongoDB container image.
+
+5. **Link the MongoDB service**:
+   - Ensure that the **Order Management Service** is linked to the **MongoDB** service. This can be done by setting environment variables in the application deployment configuration that point to the MongoDB service.
+
+6. **Expose the application**:
+   - To make the application publicly accessible, expose the service with the following command:
+     ```bash
+     oc expose svc/order-management-service --port=8080
+     ```
+   - This will generate a URL where you can access the application and test its API, including Swagger UI.
+
+7. **Access the application**:
+   - Once the deployment is complete, access the Swagger UI by navigating to the provided OpenShift route (the URL exposed in the previous step).
 ---
 
 ## Next Steps
