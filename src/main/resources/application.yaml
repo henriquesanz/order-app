@@ -1,8 +1,52 @@
 spring:
   data:
     mongodb:
-      uri: 'mongodb://localhost:27017/order-service'
-      database: order-service
+      host: ${MONGO_HOST:localhost}
+      port: ${MONGO_PORT:27017}
+      username: ${MONGO_USER:admin}
+      password: ${MONGO_PASS:admin}
+      database: ${MONGO_DATABASE:orders}
+      authentication-database: admin
+  cloud:
+    openfeign:
+      enabled: true
+  validation:
+    enabled: false
+
+feign:
+  client:
+    config:
+      default:
+        connect-timeout: 5000
+        read-timeout: 5000
+    default-to-properties: false
+
+application:
+  retry:
+    period: 100
+    maxPeriod: 1000
+    maxAttempts: 3
+
+client:
+  external:
+    service-b:
+      url: ${EXTERNAL_CLIENT_B:https://example.com}
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /v3/api-docs
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: openapi, swagger-ui
 
 server:
   port: 8080
+
+logging:
+  level:
+    root: INFO
